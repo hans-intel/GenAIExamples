@@ -21,7 +21,8 @@ function build_docker_images_for_retrieval_tool(){
     get_genai_comps
     echo "Build all the images with --no-cache..."
     service_list="doc-index-retriever dataprep embedding retriever reranking"
-    docker compose -f build.yaml build ${service_list} --no-cache
+    #docker compose -f build.yaml build ${service_list} --no-cache
+    docker-compose -f build.yaml build ${service_list}
     docker pull ghcr.io/huggingface/text-embeddings-inference:cpu-1.5
 
     docker images && sleep 1s
@@ -31,7 +32,8 @@ function build_agent_docker_image() {
     cd $WORKDIR/GenAIExamples/AgentQnA/docker_image_build/
     get_genai_comps
     echo "Build agent image with --no-cache..."
-    docker compose -f build.yaml build --no-cache
+    #docker compose -f build.yaml build --no-cache
+    docker-compose -f build.yaml build
 }
 
 function build_vllm_docker_image() {
