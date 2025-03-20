@@ -63,7 +63,7 @@ services:
       - "8808:80"
     volumes:
       - "${MODEL_CACHE}:/data"
-    runtime: habana
+    #runtime: habana
     cap_add:
       - SYS_NICE
     ipc: host
@@ -79,6 +79,7 @@ services:
     command: --model-id ${RERANK_MODEL_ID} --auto-truncate
   vllm-service:
     image: ${REGISTRY:-opea}/vllm-gaudi:${TAG:-latest}
+    privileged: true
     container_name: vllm-gaudi-server
     ports:
       - "8007:80"
@@ -99,7 +100,7 @@ services:
       interval: 10s
       timeout: 10s
       retries: 100
-    runtime: habana
+    #runtime: habana
     cap_add:
       - SYS_NICE
     ipc: host
